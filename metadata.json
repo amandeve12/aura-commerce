@@ -1,0 +1,6 @@
+{
+  "name": "AURA — Minimalist Luxury E-Commerce",
+  "description": "A premium modern minimalist luxury e-commerce platform with curated products, interactive filters, quick view, cart drawer, checkout, and customer dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
