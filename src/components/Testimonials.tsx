@@ -63,8 +63,8 @@ export const Testimonials: React.FC = () => {
 
         {/* Testimonial Card */}
         <div className="max-w-3xl mx-auto relative">
-          <Card className="relative w-full overflow-hidden p-8 sm:p-12 shadow-xl bg-white dark:bg-neutral-900 rounded-3xl">
-               <ShineBorder shineColor={["#A07CFE", "#FE8FB5", "#FFBE7B"]} />
+          <Card className="relative w-full overflow-hidden p-8 sm:p-12 shadow-xl border border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-neutral-900 rounded-3xl">
+          //  <ShineBorder shineColor={["#A07CFE", "#FE8FB5", "#FFBE7B"]} />s
             <Quote className="absolute top-6 right-8 w-20 h-20 text-neutral-100 dark:text-neutral-800 pointer-events-none -rotate-12" />
 
             <div className="relative z-10 flex flex-col items-center text-center space-y-6">

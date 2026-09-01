@@ -19,7 +19,7 @@ export interface ShineBorderProps extends React.HTMLAttributes<HTMLDivElement> {
 export function ShineBorder({
   borderRadius = 24,
   borderWidth = 2,
-  duration = 12,
+  duration = 8,
   color,
   shineColor = ['#A07CFE', '#FE8FB5', '#FFBE7B'],
   className,
@@ -29,9 +29,13 @@ export function ShineBorder({
 }: ShineBorderProps) {
   const activeColors = shineColor || color || ['#A07CFE', '#FE8FB5', '#FFBE7B'];
   const colorList = Array.isArray(activeColors) ? activeColors : [activeColors];
-  const gradientString = colorList.length === 1 
-    ? `${colorList[0]}, ${colorList[0]}`
-    : colorList.join(', ');
+  
+  // Format vibrant conic gradient with smooth entries and exits
+  const conicStops = colorList.length === 1
+    ? `transparent 0deg, transparent 60deg, ${colorList[0]} 120deg, ${colorList[0]} 180deg, transparent 240deg, transparent 360deg`
+    : colorList.length === 2
+    ? `transparent 0deg, transparent 40deg, ${colorList[0]} 90deg, ${colorList[1]} 170deg, transparent 240deg, transparent 360deg`
+    : `transparent 0deg, transparent 30deg, ${colorList[0]} 75deg, ${colorList[1]} 135deg, ${colorList[2]} 195deg, transparent 265deg, transparent 360deg`;
 
   return (
     <div
@@ -39,23 +43,19 @@ export function ShineBorder({
         {
           '--border-radius': `${borderRadius}px`,
           '--border-width': `${borderWidth}px`,
-          '--shine-pulse-duration': `${duration}s`,
           '--duration': `${duration}s`,
-          '--mask-linear-gradient': `linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)`,
-          '--background-radial-gradient': `radial-gradient(transparent, transparent, ${gradientString}, transparent, transparent)`,
           ...style,
         } as React.CSSProperties
       }
-      className={cn(
-        'pointer-events-none absolute inset-0 size-full rounded-[--border-radius] p-[--border-width] z-10',
-        'before:absolute before:inset-0 before:size-full before:rounded-[--border-radius] before:p-[--border-width] before:will-change-[background-position] before:content-[""]',
-        'before:![-webkit-mask-composite:xor] before:![mask-composite:exclude]',
-        'before:[background-image:var(--background-radial-gradient)] before:[background-size:300%_300%] before:[mask:var(--mask-linear-gradient)] before:[-webkit-mask:var(--mask-linear-gradient)]',
-        'motion-safe:before:animate-shine',
-        className
-      )}
+      className={cn('shine-border-wrapper', className)}
       {...props}
     >
+      <div
+        className="shine-border-spinner"
+        style={{
+          background: `conic-gradient(from 0deg, ${conicStops})`,
+        }}
+      />
       {children}
     </div>
   );
